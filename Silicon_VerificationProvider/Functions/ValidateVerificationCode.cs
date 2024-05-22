@@ -23,7 +23,7 @@ public class ValidateVerificationCode(ILogger<ValidateVerificationCode> logger, 
             var validateRequest = await UnpackValidateRequestAsync(req);
             if(validateRequest != null)
             {
-                var validateResult = ValidateCodeAsync(validateRequest);
+                var validateResult = await ValidateCodeAsync(validateRequest);
                 if (validateResult)
                 {
                     return new OkResult();
@@ -61,7 +61,7 @@ public class ValidateVerificationCode(ILogger<ValidateVerificationCode> logger, 
         }
         return null!;
     }
-    public async bool ValidateCodeAsync(ValidateRequestModel validateRequest)
+    public async Task<bool> ValidateCodeAsync(ValidateRequestModel validateRequest)
     {
         try
         {
