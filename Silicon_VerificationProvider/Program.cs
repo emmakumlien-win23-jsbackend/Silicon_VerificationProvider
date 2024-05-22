@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Silicon_VerificationProvider.Data.Context;
+using Silicon_VerificationProvider.Services;
 using System.Diagnostics;
 
 var host = new HostBuilder()
@@ -13,6 +14,8 @@ var host = new HostBuilder()
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
         services.AddDbContext<DataContext>(x=> x.UseSqlServer(Environment.GetEnvironmentVariable("SqlServer")));
+        services.AddScoped<IVerificationService, VerificationService>();
+        services.AddScoped<IVerificationCleanerService, VerificationCleanerService>();
     })
     .Build();
 
